@@ -1,3 +1,7 @@
 /venv/
+/migration/
+/migrator.egg-info
 __pycache__
 test.py
+setup.py
+*.conf
