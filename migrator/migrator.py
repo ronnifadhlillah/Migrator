@@ -1,9 +1,10 @@
-# import click
+import click
 
-# @click.command()
-# @click.option('hello')
-# def cli():
-#     print('hello')
-
+@click.group()
 def main():
-    print('Hell yeah')
+    """MIGRATOR : THE DATABASE MADE IN CLI"""
+
+@main.command()
+@click.option('--db', nargs=1, type=str)
+def init(db):
+    click.echo("%s world" %db)

@@ -33,7 +33,6 @@ def create_migration_folder():
         fn=curr_time.strftime('%d%m%Y%H%I%S')+'db_config.conf'
         if os.path.isdir('migration') is False:
             os.mkdir('migration',777)
-            m_dir=os.path.join(os.getcwd(),'migration')
-            wconfig=open(os.path.join(m_dir,fn), "x")
-            wconfig.write(readme)
-            wconfig.close()
+        wconfig=open('migrator.conf', "x")
+        wconfig.write(readme)
+        wconfig.close()
