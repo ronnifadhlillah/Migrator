@@ -1,8 +1,10 @@
 /venv/
 /migration/
+/database/
 /migrator.egg-info
 __pycache__
 test.py
 setup.py
 *.conf
+*.sqlite
 dump.py
