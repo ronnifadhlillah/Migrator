@@ -7,4 +7,5 @@ test.py
 setup.py
 *.conf
 *.sqlite
+*.sql
 dump.py
