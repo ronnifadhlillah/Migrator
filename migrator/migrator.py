@@ -30,9 +30,10 @@ def init(db):
             sys.exit()
     pass
 
-# Sometime, there's developer has write a SQL syntax and ready to import to database. the code below is how to handle it.
+# Sometime, developer has write down a SQL syntax and ready to serve to database. the code below is how to handle it.
 # If path is not define it's return to None and make a .SQL file in project folder.
-# Can genereate in dynamic path / directory.
+# Can generate in dynamic path / directory.
+# Syntax : migrator generate --sql [database name] [path, default is None]
 @main.command()
 @click.option('--sql',nargs=1,type=str,help='TEXT replace with sql filename.')
 @click.argument('path',nargs=1,default='None')
@@ -51,3 +52,8 @@ def generate(sql,path):
         gf=open(sql+'.sql', "x")
         gf.close()
         print("""$s.SQL file has been created. Check %s folder""" % (sql,path))
+
+@main.command()
+@click.option('--m')
+def migrate():
+    pass

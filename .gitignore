@@ -9,3 +9,4 @@ setup.py
 *.sqlite
 *.sql
 dump.py
+run.py
