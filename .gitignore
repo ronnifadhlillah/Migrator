@@ -8,5 +8,6 @@ setup.py
 *.conf
 *.sqlite
 *.sql
+*.log
 dump.py
 run.py

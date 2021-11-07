@@ -2,6 +2,7 @@ import subprocess
 import sys
 import os
 import datetime
+import migrator
 
 setup_scripts="""from setuptools import setup
 
@@ -17,9 +18,6 @@ setup(
 )
 """
 
-readme="""this is test
-"""
-
 def generate_setup():
     os.chdir(os.getcwd())
     sp=open('setup.py','w')
@@ -29,10 +27,16 @@ def generate_setup():
     create_migration_folder()
 
 def create_migration_folder():
-        curr_time=datetime.datetime.now()
-        fn=curr_time.strftime('%d%m%Y%H%I%S')+'db_config.conf'
         if os.path.isdir('migration') is False:
             os.mkdir('migration',777)
-        wconfig=open('migrator.conf', "x")
-        wconfig.write(readme)
-        wconfig.close()
+            # os.makedirs('migration/dataFactory')
+            mlog=open('migration/migrator.log','x')
+            mlog.close
+            os.makedirs('migration/migrationPool')
+        os.chdir(os.getcwd())
+        try:
+            wconfig=open('migrator.conf', "x")
+            wconfig.write(migrator.conFile)
+            wconfig.close()
+        except FileExistsError as fee:
+            print(""".conf file is exists.""")
