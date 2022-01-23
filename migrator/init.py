@@ -4,8 +4,9 @@ import os
 import datetime
 import migrator
 
-setup_scripts="""from setuptools import setup
+# Setup tempalate
 
+setup_scripts="""from setuptools import setup
 setup(
     name='migrator',
     version='1.0',
@@ -30,7 +31,7 @@ def create_migration_folder():
         if os.path.isdir('migration') is False:
             os.mkdir('migration',777)
             # os.makedirs('migration/dataFactory')
-            mlog=open('migration/migrator.log','x')
+            mlog=open('migration/migration.log','x')
             mlog.close
             os.makedirs('migration/migrationPool')
         os.chdir(os.getcwd())

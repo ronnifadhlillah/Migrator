@@ -38,5 +38,7 @@ def logResponse(rb,args=None):
     wlog.write(res[rb]+'\n')
     wlog.close()
 
+    print(res[int(rb)])
+
 
 # I'ts return to [Timestamp] --> ['Verbose']
