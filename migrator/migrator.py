@@ -27,13 +27,13 @@ def init(db):
             os.chdir('../')
             migrator.logResponse(0,db)
         else:
-            # print("""folder %s and it's file is exists. Delete the folder and re-create the database.""" % migrator.cfg[migrator.driver]['path'])
+            print("""Folder %s and it's file is exists. Delete the folder to re-create the database.""" % migrator.cfg[migrator.driver]['path'])
             # input("would you want to delete the folder and it's file ? ")
             sys.exit()
     pass
     # replace with if database is using, sql server, mariadb / mysql
 
-# Sometime, developer has write down a SQL syntax and ready to serve to database. the code below is how to handle it.
+# Sometime, developer has write down a SQL syntax and ready to import to database. the code below is how to handle it.
 # If path is not define it's return to None and make a .SQL file in project folder.
 # Can generate in dynamic path / directory.
 # Disallow duplicating file / folder / directory
@@ -70,5 +70,5 @@ def generate(sql,path):
 @click.option('--file-migrate',nargs=1,type=str,help='TEXT replace with SQL filename.')
 @click.argument('path',nargs=1,default='None')
 def fileMigrate():
-    """Import .sql file to database."""
+    """Import .SQL file to database."""
     pass

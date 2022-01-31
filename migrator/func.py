@@ -29,16 +29,16 @@ def ts():
 # wlog: writting the log verbose
 def logResponse(rb,args=None):
     res={
-        0:ts() +' --> Database %s is successfully created. Check folder %s to view database file. ' % (args,migrator.cfg[migrator.driver]['path']) ,
-        1:ts() +' --> .SQL file has been created. Check project folder.',
-        2:ts() +' --> ',
+        0:ts() +' --> .SQL %s ha been generated. Check folder %s to view .SQL file. ' % (args,migrator.cfg[migrator.driver]['path']) , # Create folder and database file.
+        1:ts() +' --> .SQL file has been created. Check project folder.', # Create files in .sql extension.
+        2:ts() +' --> .SQL has been imported to database successfully. Check RDBMS', # Import .sql file to database.
         3:ts() +' --> '
     }
     wlog=open('migration\migration.log','a+')
     wlog.write(res[rb]+'\n')
     wlog.close()
 
-    print(res[int(rb)])
+    # print(res[int(rb)])
 
 
 # I'ts return to [Timestamp] --> ['Verbose']
