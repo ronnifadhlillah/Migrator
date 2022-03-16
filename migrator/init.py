@@ -4,7 +4,7 @@ import os
 import datetime
 import migrator
 
-# Setup tempalate
+# Setup template
 
 setup_scripts="""from setuptools import setup
 setup(
