@@ -11,8 +11,48 @@ import migrator
 def main():
     """MIGRATOR : THE DATABASE MADE IN CLI"""
 
-# Initialize database
-# gsqlf: if using sqlite the file database will generate
+# Sometime, developer has write down a SQL syntax and ready to import to database. the code below is how to handle it.
+# If path is not define it's return to None and make a .SQL file in project folder.
+# Can generate in dynamic path / directory.
+# Disallow duplicating file / folder / directory
+
+@main.command()
+@click.option('--sql',nargs=1,type=str,help='TEXT replace with SQL filename.')
+@click.argument('path',nargs=1,default='None')
+def generate_sql_file(sql,path):
+
+    """Generate .SQL file."""
+
+    # If path is not define, .sql file is create in current project folder
+
+    if path == 'None':
+        migrator.isFileExist(sql)
+        gf=open(os.path.join(os.getcwd(),sql)+'.sql', "x")
+        gf.close()
+        migrator.logResponse(1)
+        print("""%s.SQL file has been created at parent directory""" % (sql))
+
+    else:
+
+    # Maybe .sql database is out of directory. Just tell the migrator the directory you want to generate
+    # in migrator syntax
+
+        if migrator.cfg[migrator.driver]['path']==path:
+            os.chdir(path)
+        else:
+            os.makedirs(path,777)
+            os.chdir(path)
+        migrator.isFileExist(sql)
+        gf=open(sql+'.sql', "x")
+        gf.close()
+        os.chdir(os.path.abspath(os.path.join(os.getcwd(), os.pardir)))
+        migrator.logResponse(2)
+
+        print("""%s.SQL file has been created. Check %s folder""" % (sql,path))
+
+# Makesure for .sql availability in directory
+
+# Sqlite Generator
 
 @main.command()
 @click.option('--db',nargs=1,type=str,help='TEXT replace with database name.')
@@ -38,55 +78,11 @@ def generate_sqlite_database(db):
 
     # replace with if database is using, sql server, mariadb / mysql
 
-# Sometime, developer has write down a SQL syntax and ready to import to database. the code below is how to handle it.
-# If path is not define it's return to None and make a .SQL file in project folder.
-# Can generate in dynamic path / directory.
-# Disallow duplicating file / folder / directory
-
 @main.command()
-@click.option('--sql',nargs=1,type=str,help='TEXT replace with SQL filename.')
+@click.option('--sql-file',nargs=1,type=str,help='TEXT replace with SQL filename.')
 @click.argument('path',nargs=1,default='None')
-def generate_sql_file(sql,path):
+def sql_to_sqlite_migrate():
 
-    """Generate .SQL file."""
+    """Transform .SQL file to SqLite Database."""
 
-    # If path is not define, .sql file is create in current project folder
-
-    if path == 'None':
-        migrator.isFileExist(sql)
-        gf=open(os.path.join(os.getcwd(),sql)+'.sql', "x")
-        gf.close()
-        migrator.logResponse(1)
-        print("""%s.SQL file has been created at parent directory""" % (sql))
-    else:
-
-    # Maybe .sql database is out of directory. Just tell the migrator the directory you want to generate
-    # in migrator syntax
-        if migrator.cfg[migrator.driver]['path']==path:
-            os.chdir(path)
-        else:
-            os.makedirs(path,777)
-        migrator.isFileExist(sql)
-        gf=open(sql+'.sql', "x")
-        gf.close()
-        os.chdir(os.path.abspath(os.path.join(os.getcwd(), os.pardir)))
-        migrator.logResponse(2)
-        print("""%s.SQL file has been created. Check %s folder""" % (sql,path))
-
-        # print(migrator.isPathExist(path))
-        # print(migrator.isPathExist(path))
-        # migrator.isPathExist(path)
-        # os.makedirs(path,777)
-        # chdir('database')
-
-# Makesure for .sql availability in directory
-# argument migrator file-migrate
-
-# Skip and will be edited
-
-@main.command()
-@click.option('--file-migrate',nargs=1,type=str,help='TEXT replace with SQL filename.')
-@click.argument('path',nargs=1,default='None')
-def fileMigrate():
-    """Import .SQL file to database."""
     pass

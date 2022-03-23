@@ -1,5 +1,5 @@
 from .init import *
-from .func import *
+from .log import *
 import configparser
 
 conFile="""[database]
