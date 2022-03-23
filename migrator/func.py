@@ -27,6 +27,7 @@ def ts():
 
 # rb: response int
 # wlog: writting the log verbose
+
 def logResponse(rb,args=None):
     res={
         0:ts() +' --> .SQL %s ha been generated. Check folder %s to view .SQL file. ' % (args,migrator.cfg[migrator.driver]['path']) , # Create folder and database file.

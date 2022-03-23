@@ -16,8 +16,10 @@ def main():
 
 @main.command()
 @click.option('--db',nargs=1,type=str,help='TEXT replace with database name.')
-def init(db):
-    """Initialize new database."""
+def generate_sqlite_database(db):
+
+    """Generate SqLite databases."""
+
     if migrator.driver == 'sqlite':
         if os.path.isdir(migrator.cfg[migrator.driver]['path']) is False:
             os.makedirs(migrator.cfg[migrator.driver]['path'],777)
@@ -26,11 +28,14 @@ def init(db):
             gsqlf.close()
             os.chdir('../')
             migrator.logResponse(0,db)
+            print("""%s.sqlite file has been created. Check %s folder""" % (db,migrator.cfg[migrator.driver]['path']))
+
         else:
+
             print("""Folder %s and it's file is exists. Delete the folder to re-create the database.""" % migrator.cfg[migrator.driver]['path'])
             # input("would you want to delete the folder and it's file ? ")
             sys.exit()
-    pass
+
     # replace with if database is using, sql server, mariadb / mysql
 
 # Sometime, developer has write down a SQL syntax and ready to import to database. the code below is how to handle it.
@@ -41,25 +46,38 @@ def init(db):
 @main.command()
 @click.option('--sql',nargs=1,type=str,help='TEXT replace with SQL filename.')
 @click.argument('path',nargs=1,default='None')
-def generate(sql,path):
-    """Generate .SQL file if needed."""
+def generate_sql_file(sql,path):
+
+    """Generate .SQL file."""
+
     # If path is not define, .sql file is create in current project folder
+
     if path == 'None':
         migrator.isFileExist(sql)
         gf=open(os.path.join(os.getcwd(),sql)+'.sql', "x")
         gf.close()
         migrator.logResponse(1)
+        print("""%s.SQL file has been created at parent directory""" % (sql))
     else:
+
     # Maybe .sql database is out of directory. Just tell the migrator the directory you want to generate
     # in migrator syntax
-        migrator.isPathExist(path)
-        os.makedirs(path,777)
-        chdir(path)
+        if migrator.cfg[migrator.driver]['path']==path:
+            os.chdir(path)
+        else:
+            os.makedirs(path,777)
         migrator.isFileExist(sql)
         gf=open(sql+'.sql', "x")
         gf.close()
-        migrator.logResponse(2,args)
-        print("""$s.SQL file has been created. Check %s folder""" % (sql,path))
+        os.chdir(os.path.abspath(os.path.join(os.getcwd(), os.pardir)))
+        migrator.logResponse(2)
+        print("""%s.SQL file has been created. Check %s folder""" % (sql,path))
+
+        # print(migrator.isPathExist(path))
+        # print(migrator.isPathExist(path))
+        # migrator.isPathExist(path)
+        # os.makedirs(path,777)
+        # chdir('database')
 
 # Makesure for .sql availability in directory
 # argument migrator file-migrate
