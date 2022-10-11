@@ -1,7 +1,8 @@
+from migrator import log,conf
 import click
 import os
 import sys
-import migrator
+import configparser
 
 # Written by Ronniawan Fadhlillah
 # Migrator uses parts of `click`
@@ -22,14 +23,13 @@ def main():
 def generate_sql_file(sql,path):
 
     """Generate .SQL file."""
-
     # If path is not define, .sql file is create in current project folder
-
-    if path == 'None':
-        migrator.isFileExist(sql)
+    print(sql,path)
+    if path == "None":
+        log.isFileExist(sql)
         gf=open(os.path.join(os.getcwd(),sql)+'.sql', "x")
         gf.close()
-        migrator.logResponse(1)
+        log.logResponse(1)
         print("""%s.SQL file has been created at parent directory""" % (sql))
 
     else:
@@ -37,16 +37,16 @@ def generate_sql_file(sql,path):
     # Maybe .sql database is out of directory. Just tell the migrator the directory you want to generate
     # in migrator syntax
 
-        if migrator.cfg[migrator.driver]['path']==path:
+        if conf.cfg[conf.dbParsing()]['path']==path and os.path.isdir(path):
             os.chdir(path)
         else:
             os.makedirs(path,777)
             os.chdir(path)
-        migrator.isFileExist(sql)
+        log.isFileExist(sql)
         gf=open(sql+'.sql', "x")
         gf.close()
         os.chdir(os.path.abspath(os.path.join(os.getcwd(), os.pardir)))
-        migrator.logResponse(2)
+        log.logResponse(2)
 
         print("""%s.SQL file has been created. Check %s folder""" % (sql,path))
 
@@ -54,35 +54,35 @@ def generate_sql_file(sql,path):
 
 # Sqlite Generator
 
-@main.command()
-@click.option('--db',nargs=1,type=str,help='TEXT replace with database name.')
-def generate_sqlite_database(db):
-
-    """Generate SqLite databases."""
-
-    if migrator.driver == 'sqlite':
-        if os.path.isdir(migrator.cfg[migrator.driver]['path']) is False:
-            os.makedirs(migrator.cfg[migrator.driver]['path'],777)
-            os.chdir(migrator.cfg[migrator.driver]['path'])
-            gsqlf=open(db+'.'+migrator.driver, "x")
-            gsqlf.close()
-            os.chdir('../')
-            migrator.logResponse(0,db)
-            print("""%s.sqlite file has been created. Check %s folder""" % (db,migrator.cfg[migrator.driver]['path']))
-
-        else:
-
-            print("""Folder %s and it's file is exists. Delete the folder to re-create the database.""" % migrator.cfg[migrator.driver]['path'])
-            # input("would you want to delete the folder and it's file ? ")
-            sys.exit()
-
-    # replace with if database is using, sql server, mariadb / mysql
-
-@main.command()
-@click.option('--sql-file',nargs=1,type=str,help='TEXT replace with SQL filename.')
-@click.argument('path',nargs=1,default='None')
-def sql_to_sqlite_migrate():
-
-    """Transform .SQL file to SqLite Database."""
-
-    pass
+# @main.command()
+# @click.option('--db',nargs=1,type=str,help='TEXT replace with database name.')
+# def generate_sqlite_database(db):
+#
+#     """Generate SqLite databases."""
+#
+#     if migrator.driver == 'sqlite':
+#         if os.path.isdir(migrator.cfg[migrator.driver]['path']) is False:
+#             os.makedirs(migrator.cfg[migrator.driver]['path'],777)
+#             os.chdir(migrator.cfg[migrator.driver]['path'])
+#             gsqlf=open(db+'.'+migrator.driver, "x")
+#             gsqlf.close()
+#             os.chdir('../')
+#             migrator.logResponse(0,db)
+#             print("""%s.sqlite file has been created. Check %s folder""" % (db,migrator.cfg[migrator.driver]['path']))
+#
+#         else:
+#
+#             print("""Folder %s and it's file is exists. Delete the folder to re-create the database.""" % migrator.cfg[migrator.driver]['path'])
+#             # input("would you want to delete the folder and it's file ? ")
+#             sys.exit()
+#
+#     # replace with if database is using, sql server, mariadb / mysql
+#
+# @main.command()
+# @click.option('--sql-file',nargs=1,type=str,help='TEXT replace with SQL filename.')
+# @click.argument('path',nargs=1,default='None')
+# def sql_to_sqlite_migrate():
+#
+#     """Transform .SQL file to SqLite Database."""
+#
+#     pass

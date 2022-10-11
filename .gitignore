@@ -1,13 +1,8 @@
 /venv/
-/migration/
-/database/
 /migrator.egg-info
 __pycache__
 test.py
-setup.py
-*.conf
-*.sqlite
-*.sql
-*.log
 dump.py
+dump_migrator.py.txt
 run.py
+setup.py

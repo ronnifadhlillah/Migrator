@@ -1,8 +1,9 @@
+from migrator import conf
 import subprocess
 import sys
 import os
 import datetime
-import migrator
+import configparser
 
 # Setup template
 
@@ -37,7 +38,8 @@ def create_migration_folder():
         os.chdir(os.getcwd())
         try:
             wconfig=open('migrator.conf', "x")
-            wconfig.write(migrator.conFile)
+            wconfig.write(conf.conFile)
             wconfig.close()
+            print("""Config file has been created at %s.""" % (datetime.datetime.now()))
         except FileExistsError as fee:
-            print(""".conf file is exists.""")
+            print(""".conf file is exists. Delete old first.""")

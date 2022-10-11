@@ -1,6 +1,5 @@
-from .init import *
-from .log import *
 import configparser
+import os
 
 conFile="""[database]
   connection=sqlite
@@ -20,7 +19,10 @@ conFile="""[database]
 # Passing configuration below
 # Basic configuration setup is based on .conf file.
 # The cfg prefix , from configuration file.
+#
 
 cfg=configparser.ConfigParser()
-cfg.read(os.getcwd()+'/migrator.conf')
-driver=cfg['database']['connection']
+
+def dbParsing():
+    cfg.read(os.getcwd()+'/migrator.conf')
+    return cfg['database']['connection']
