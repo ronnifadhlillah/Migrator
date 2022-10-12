@@ -25,6 +25,7 @@ def generate_setup():
     sp=open('setup.py','w')
     sp.write(setup_scripts)
     sp.close()
+    print("""Init file has been created at %s.""" % (datetime.datetime.now()))
     subprocess.check_call([sys.executable, "-m", "pip", "install","-q","-e","."])
     create_migration_folder()
 
