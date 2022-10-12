@@ -4,5 +4,3 @@ __pycache__
 test.py
 dump.py
 dump_migrator.py.txt
-run.py
-setup.py

@@ -14,5 +14,5 @@ Dynamics file and path:
     - py run.py
 
 2. SQL as file
-    - migrator generate-file-sql --sql path dbname on the folder inside project directory
+    - migrator generate-file-sql --sql path dbname -> on the folder inside project directory
     - migrator generate-file-sql --sql dbname -> on the parent/project directory

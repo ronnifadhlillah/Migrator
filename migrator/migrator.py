@@ -10,6 +10,7 @@ import configparser
 
 @click.group()
 def main():
+
     """MIGRATOR : THE DATABASE MADE IN CLI"""
 
 # Sometime, developer has write down a SQL syntax and ready to import to database. the code below is how to handle it.
@@ -18,13 +19,17 @@ def main():
 # Disallow duplicating file / folder / directory
 
 @main.command()
-@click.option('--sql',nargs=1,type=str,help='TEXT replace with SQL filename.')
+@click.option('--sql',nargs=1,type=str,help='TEXT replace with SQL filename or directory.')
 @click.argument('path',nargs=1,default='None')
 def generate_sql_file(sql,path):
 
-    """Generate .SQL file."""
+    """Generate .SQL file.\n
+    More usage :\n
+    - Create SQL database on parent directory : migrator generate-sql-file database-name\n
+    - using directory or folder : migrator generate-sql-file --sql directory-name database-name
+    """
     # If path is not define, .sql file is create in current project folder
-    print(sql,path)
+
     if path == "None":
         log.isFileExist(sql)
         gf=open(os.path.join(os.getcwd(),sql)+'.sql', "x")
@@ -47,10 +52,9 @@ def generate_sql_file(sql,path):
         gf.close()
         os.chdir(os.path.abspath(os.path.join(os.getcwd(), os.pardir)))
         log.logResponse(2)
-
         print("""%s.SQL file has been created. Check %s folder""" % (sql,path))
 
-# Makesure for .sql availability in directory
+        # Makesure for .sql availability in directory
 
 # Sqlite Generator
 
