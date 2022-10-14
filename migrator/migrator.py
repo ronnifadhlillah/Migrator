@@ -2,6 +2,7 @@ from migrator import log,conf
 import click
 import os
 import sys
+import datetime
 import configparser
 
 # Written by Ronniawan Fadhlillah
@@ -35,7 +36,7 @@ def generate_sql_file(sql,path):
         gf=open(os.path.join(os.getcwd(),sql)+'.sql', "x")
         gf.close()
         log.logResponse(1)
-        print("""%s.SQL file has been created at parent directory""" % (sql))
+        print(datetime.datetime.now()+""" --> %s.SQL file has been created at parent directory""" % (sql))
 
     else:
 
@@ -52,7 +53,7 @@ def generate_sql_file(sql,path):
         gf.close()
         os.chdir(os.path.abspath(os.path.join(os.getcwd(), os.pardir)))
         log.logResponse(2)
-        print("""%s.SQL file has been created. Check %s folder""" % (sql,path))
+        print(datetime.datetime.now(), """ --> %s.SQL file has been created. Check %s folder""" % (sql,path))
 
         # Makesure for .sql availability in directory
 

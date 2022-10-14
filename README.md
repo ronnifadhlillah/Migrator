@@ -9,6 +9,8 @@ Dynamics file and path:
 - setup.py file
 - egg file
 
+After run "run.py" edit the migrator.conf refer to your current database config and name.
+
 
 1. generate configuration and setup file
     - py run.py

@@ -25,7 +25,7 @@ def generate_setup():
     sp=open('setup.py','w')
     sp.write(setup_scripts)
     sp.close()
-    print("""Init file has been created at %s.""" % (datetime.datetime.now()))
+    print(datetime.datetime.now(), """ --> Init file has been created at %s.""" % (datetime.datetime.now()))
     subprocess.check_call([sys.executable, "-m", "pip", "install","-q","-e","."])
     create_migration_folder()
 
@@ -38,9 +38,10 @@ def create_migration_folder():
             os.makedirs('migration/migrationPool')
         os.chdir(os.getcwd())
         try:
-            wconfig=open('migrator.conf', "x")
+            wconfig=open('migration/migrator.conf', "x")
             wconfig.write(conf.conFile)
             wconfig.close()
-            print("""Config file has been created at %s.""" % (datetime.datetime.now()))
+            os.chdir(os.getcwd())
+            print(datetime.datetime.now(), """ --> Config file has been created at %s.""" % (datetime.datetime.now()))
         except FileExistsError as fee:
-            print(""".conf file is exists. Delete old first.""")
+            print(datetime.datetime.now(), """ --> .conf file is exists. Delete old first.""")

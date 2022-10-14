@@ -1,3 +1,4 @@
+from migrator import conf
 import os
 import sys
 import datetime
@@ -5,13 +6,9 @@ import configparser
 
 # f: filename
 
-cfg=configparser.ConfigParser()
-cfg.read(os.getcwd()+'/migrator.conf')
-driver=cfg['database']['connection']
-
 def isFileExist(f):
     if os.path.exists(f+'.sql'):
-        print("""%s.sql is exist. Delete first.""" % f)
+        print(datetime.datetime.now(), """ --> %s.sql is exist. Delete first.""" % f)
         sys.exit()
     return True
 
@@ -19,7 +16,7 @@ def isFileExist(f):
 
 def isFolderExist(p):
     if os.path.isdir(p):
-        print("""Folder is exist. Delete First""")
+        print(datetime.datetime.now(), """ --> Folder is exist. Delete First""")
         sys.exit()
     return True
 
@@ -34,7 +31,7 @@ def ts():
 
 def logResponse(rb,args=None):
     res={
-        0:ts() +' --> .SQL %s ha been generated. Check folder %s to view .SQL file. ' % (args,cfg[driver]['path']) , # Create folder and database file.
+        0:ts() +' --> .SQL %s ha been generated. Check folder %s to view .SQL file. ' % (args,conf.cfg[conf.dbParsing()]['path']) , # Create folder and database file.
         1:ts() +' --> .SQL file has been created. Check project folder.', # Create files in .sql extension.
         2:ts() +' --> .SQL has been imported to database successfully. Check RDBMS', # Import .sql file to database.
         3:ts() +' --> '

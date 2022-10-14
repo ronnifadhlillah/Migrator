@@ -24,5 +24,5 @@ conFile="""[database]
 cfg=configparser.ConfigParser()
 
 def dbParsing():
-    cfg.read(os.getcwd()+'/migrator.conf')
+    cfg.read(os.getcwd()+'/migration/migrator.conf')
     return cfg['database']['connection']
